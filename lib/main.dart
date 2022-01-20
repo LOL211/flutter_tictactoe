@@ -233,6 +233,29 @@ class board_grid extends StatelessWidget {
         });
   }
 
+  void _showDrawDialog(BuildContext context) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Draw'),
+            actions: [
+              TextButton(
+                child: const Text('Play Again'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  reset();
+                },
+              ),
+              TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Ok'))
+            ],
+          );
+        });
+  }
+
   int _getturn(int index, BuildContext context) {
     board_state[index] = turn;
     settext('Next turn is ' + (turn == 1 ? 'X' : '0'));
@@ -241,6 +264,8 @@ class board_grid extends StatelessWidget {
       play = false;
       print(play);
       _showWinDialog(checkwinner() == 1 ? 'O' : 'X', context);
+    } else if (checkwinner() == 0) {
+      _showDrawDialog(context);
     }
     return turn;
   }
@@ -261,8 +286,14 @@ class board_grid extends StatelessWidget {
     if (board_state[2] == board_state[4] &&
         board_state[2] == board_state[6] &&
         board_state[4] != 0) return board_state[2];
-
-    return -1;
+    bool full = true;
+    for (int c = 0; c < 9; c++) {
+      if (board_state[c] == 0) {
+        full = false;
+        break;
+      }
+    }
+    return full ? 0 : -1;
   }
 
   void reset() {
@@ -339,22 +370,3 @@ class _squareState extends State<square> {
                     valueListenable: widget.change))));
   }
 }
- // void _showDrawDialog() {
-  //   showDialog(
-  //       barrierDismissible: false,
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return AlertDialog(
-  //           title: Text("Draw"),
-  //           actions: [
-  //             FlatButton(
-  //               child: Text("Play Again"),
-  //               onPressed: () {
-  //                 _clearBoard();
-  //                 Navigator.of(context).pop();
-  //               },
-  //             )
-  //           ],
-  //         );
-  //       });
-  // }
