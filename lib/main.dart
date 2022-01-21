@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, curly_braces_in_flow_control_structures
+// ignore_for_file: camel_case_types, curly_braces_in_flow_control_structures, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
@@ -108,8 +108,6 @@ class board_grid extends StatelessWidget {
     final rand = math.Random();
     int index = possible[rand.nextInt(possible.length)];
     board[index].taketurn(_getturn(index, context));
-    // board[possible[rand.nextInt(possible.length)]].taketurn(turn);
-    // board_state[possible[rand.nextInt(possible.length)]] = turn;
   }
 
   void ai_hard(BuildContext context) {
@@ -258,11 +256,14 @@ class board_grid extends StatelessWidget {
 
   int _getturn(int index, BuildContext context) {
     board_state[index] = turn;
-    settext('Next turn is ' + (turn == 1 ? 'X' : '0'));
+    settext('Next turn is ' + (turn == 1 ? 'X' : 'O'));
     turn = turn == 1 ? 2 : 1;
-    if (checkwinner() != -1) {
+    if (checkwinner() != -1 && checkwinner() != 0) {
       play = false;
-      print(play);
+      for (int c = 0; c < 9; c++) {
+        print(c);
+        print(board_state[c]);
+      }
       _showWinDialog(checkwinner() == 1 ? 'O' : 'X', context);
     } else if (checkwinner() == 0) {
       _showDrawDialog(context);
