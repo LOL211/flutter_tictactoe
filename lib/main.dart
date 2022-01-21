@@ -43,37 +43,42 @@ class tictactoe extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
       ),
       Expanded(
-          flex: 10,
-          child: Column(children: [
-            mygrid,
-            ValueListenableBuilder<String>(
-              valueListenable: text,
-              builder: (BuildContext context, String value, Widget? child) {
-                return Text(value);
-              },
-            ),
-            Center(
-                child: Row(
-              children: [
-                TextButton(onPressed: mygrid.reset, child: const Text('reset')),
-                TextButton(
-                    onPressed: () => {mygrid.ai_easy(context)},
-                    child: const Text('Ai Easy')),
-                TextButton(
-                    onPressed: () => mygrid.ai_med(context),
-                    child: const Text('Ai Medium')),
-                TextButton(
-                    onPressed: () => mygrid.ai_hard(context),
-                    child: const Text('Ai Hard')),
-                TextButton(
-                    onPressed: () => mygrid.ai_harder(context),
-                    child: const Text('Ai Harder')),
-                TextButton(
-                    onPressed: () => mygrid.ai_hardest(context),
-                    child: const Text('Ai Hardest')),
-              ],
-            ))
-          ]))
+          flex: 2,
+          child: AspectRatio(
+              //constraints: BoxConstraints(maxHeight: 300, maxWidth: 100),
+              aspectRatio: 1 / 1,
+              child: Column(children: [
+                mygrid,
+              ]))),
+      ValueListenableBuilder<String>(
+        valueListenable: text,
+        builder: (BuildContext context, String value, Widget? child) {
+          return Text(value);
+        },
+      ),
+      Expanded(
+          child: Center(
+              child: Row(
+            children: [
+              TextButton(onPressed: mygrid.reset, child: const Text('reset')),
+              TextButton(
+                  onPressed: () => {mygrid.ai_easy(context)},
+                  child: const Text('Ai Easy')),
+              TextButton(
+                  onPressed: () => mygrid.ai_med(context),
+                  child: const Text('Ai Medium')),
+              TextButton(
+                  onPressed: () => mygrid.ai_hard(context),
+                  child: const Text('Ai Hard')),
+              TextButton(
+                  onPressed: () => mygrid.ai_harder(context),
+                  child: const Text('Ai Harder')),
+              TextButton(
+                  onPressed: () => mygrid.ai_hardest(context),
+                  child: const Text('Ai Hardest')),
+            ],
+          )),
+          flex: 1)
     ]);
   }
 }
