@@ -57,10 +57,13 @@ class tictactoe extends StatelessWidget {
         },
       ),
       Expanded(
-          child: Center(
-              child: Row(
+          // child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextButton(onPressed: mygrid.reset, child: const Text('reset')),
+              TextButton(onPressed: mygrid.reset, child: const Text('Reset')),
               TextButton(
                   onPressed: () => {mygrid.ai_easy(context)},
                   child: const Text('Ai Easy')),
@@ -77,7 +80,7 @@ class tictactoe extends StatelessWidget {
                   onPressed: () => mygrid.ai_hardest(context),
                   child: const Text('Ai Hardest')),
             ],
-          )),
+          ),
           flex: 1)
     ]);
   }
